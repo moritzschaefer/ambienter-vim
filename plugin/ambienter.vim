@@ -43,7 +43,7 @@ if !empty(Ambienter.conf.sensor)
 
     if Ambienter.conf.disable != 1
 
-        if !filereadable(Ambienter.conf.sensor.path)
+        if !filereadable("/sys/devices/platform/applesmc.768/light")
             echom 'Ambienter: ' . "Sensor file " . Ambienter.conf.sensor.path . " not found or not readable."
         else
 
@@ -78,7 +78,7 @@ if !empty(Ambienter.conf.sensor)
             " Define colorsheme based on ambient light
             function! Ambienter.Sensor() dict
                 " read als current value
-                let self.conf.sensor.value.current = join(readfile(self.conf.sensor.path), "\n")
+                let self.conf.sensor.value.current = system("cat  /sys/devices/platform/applesmc.768/light | grep -Eo '[0-9]+' | head -n1")
                 call self.Log('Sensor value [' . self.conf.sensor.value.current . ']')
 
                 if len(self.conf.sensor.value.current) > 0
