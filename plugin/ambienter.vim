@@ -78,7 +78,7 @@ if !empty(Ambienter.conf.sensor)
             " Define colorsheme based on ambient light
             function! Ambienter.Sensor() dict
                 " read als current value
-                let self.conf.sensor.value.current = system("cat  /sys/devices/platform/applesmc.768/light | grep -Eo '[0-9]+' | head -n1")
+                let self.conf.sensor.value.current = system("cat  /sys/devices/platform/applesmc.768/light | grep -Eo '[0-9]+' | head -n1 | xargs echo -n")
                 call self.Log('Sensor value [' . self.conf.sensor.value.current . ']')
 
                 if len(self.conf.sensor.value.current) > 0
