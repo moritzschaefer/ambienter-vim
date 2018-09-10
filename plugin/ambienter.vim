@@ -12,6 +12,7 @@ if empty(g:ambienter_config)
     " Customise to your needs in your vimrc file
     let g:ambienter_config = {
                 \     "debug": 0,
+                \     "disable": 0,
                 \     "sensor": {
                 \         "path": "/sys/class/backlight/intel_backlight/actual_brightness",
                 \         "value": {"min": 300 }
@@ -43,7 +44,7 @@ if !empty(Ambienter.conf.sensor)
 
     if Ambienter.conf.disable != 1
 
-        if !filereadable("/sys/devices/platform/applesmc.768/light")
+        if !filereadable(Ambienter.conf.sensor.path)
             echom 'Ambienter: ' . "Sensor file " . Ambienter.conf.sensor.path . " not found or not readable."
         else
 
